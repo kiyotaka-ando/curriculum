@@ -1,0 +1,64 @@
+問1
+各スイッチのブリッジプライオリティが
+　・Switch1：32769
+　・Switch2：20481
+　・Switch3：4097
+　・Switch4：8193
+であることからルートブリッジとなるスイッチはSwitch3となる
+
+A.Switch3
+
+--------------------------------------------------
+問2
+Switch3がルートブリッジであるためE0/1、E0/2はともに指定ポートに
+各ポート間のポートパスコストは以下となる
+Switch1 F0/1 - Switch2 F0/1：19
+Switch1 F0/2 - Switch3 E0/1：100
+Switch2 F0/2 - Switch4 E0/1：100
+Switch3 E0/2 - Switch4 E0/2：100
+
+ルートブリッジからSwitch1までの経路のルートパスコストは
+Switch3-Switch1：100
+Switch3-Switch4-Switch2-Switch1：100+100+19＝219
+のため、Switch1 F0/2がルートポート
+
+ルートブリッジからSwitch2までの経路のルートパスコストは
+Switch3-Switch1-Switch2：100+19＝119
+Switch3-Switch4-Switch2：100+100＝200
+のため、Switch2 F0/1がルートポート
+
+ルートブリッジからSwitch4までの経路のルートパスコストは
+Switch3-Switch1-Switch2-Switch4：100+19+100＝219
+Switch-Switch1：100
+のため、Switch4 E0/2がルートポート
+
+以上より
+・Switch1 F0/2
+・Switch2 F0/1
+・Switch4 E0/2
+がルートポート
+
+ルートブリッジのすべてのポート、ルートポートの対向ポートが指定ポートとなるため
+・Switch1 F0/1
+・Switch3 E0/1
+・Switch3 E0/2
+が対向ポートとなり、
+ルートブリッジからSwitch2、Switch4までのルートパスコストはそれぞれ
+119、100となるため、
+・Switch4 E0/1
+も指定ポートとなる。
+そのため
+・Switch2 F0/2
+はブロッキングポートとなる。
+
+A.・ルートポート
+　　・Switch1 F0/2
+　　・Switch2 F0/1
+　　・Switch4 E0/2
+　・指定ポート
+　　・Switch1 F0/1
+　　・Switch3 E0/1
+　　・Switch3 E0/2
+　　・Switch4 E0/1
+　・ブロッキングポート
+　　・Switch2 F0/2
